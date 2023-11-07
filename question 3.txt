@@ -1,0 +1,42 @@
+# Create a Python environment in the root directory
+python -m venv /Users/john_doe/envs/my_project_env
+
+# Activate the environment
+source /Users/john_doe/envs/my_project_env/bin/activate
+
+#installing json
+pip install json
+
+#creating an output directory
+mkdir /Users/john_doe/envs/my_project_output
+
+#initialize as a git supported project
+cd /Users/john_doe/envs/my_project
+git init
+
+#code to merge
+import json
+
+def merge_json_files(file1, file2):
+    with open(file1) as f1, open(file2) as f2:
+        data1 = json.load(f1)
+        data2 = json.load(f2)
+    
+    merged_data = data1 + data2
+    return merged_data
+
+if __name__ == "__main__":
+    file1_path = "/Users/john_doe/envs/file1.json"
+    file2_path = "/Users/john_doe/envs/file2.json"
+    merged_data = merge_json_files(file1_path, file2_path)
+
+    output_dir = "/Users/john_doe/envs/my_project_output"
+    output_file_path = f"{output_dir}/merged_data.json"
+
+    # Save the merged data to the output directory
+    with open(output_file_path, "w") as output_file:
+        json.dump(merged_data, output_file)
+
+#commit changes
+git add .
+git commit -m "Initial merge of JSON files"

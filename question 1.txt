@@ -1,0 +1,33 @@
+#modules to import
+import json
+from typing import List, Dict, Any
+
+#importance of typing
+The importance of typing in Python is to provide a way to specify the expected data types for function arguments and return values. 
+This can help improve code readability, maintainability, and can catch type-related errors early during development
+
+#
+List from typing to indicate that the function returns a list.
+Dict from typing to specify that the list contains dictionaries.
+Any from typing to indicate that the values in the dictionaries can be of any type.
+
+#completed function
+def read_jsonline(FILEPATH: str) -> List[Dict[str, Any]]:
+    shape_coordinates = []
+    
+    # Open the file at the specified FILEPATH
+    with open(FILEPATH, 'r') as file:
+        for line in file:
+            try:
+                # Parse each line as JSON and append it to the shape_coordinates list
+                shape_coordinates.append(json.loads(line))
+            except json.JSONDecodeError:
+                # Handle invalid JSON lines if any
+                print(f"Skipping invalid JSON line: {line}")
+    
+    return shape_coordinates
+	
+#possible errors
+Incorrect file path: If the specified file path does not exist or contains typos, you will encounter a FileNotFoundError.
+Insufficient permissions: If the script does not have read access to the file specified by FILEPATH, you will get a PermissionError.
+Non-existing file: If the file specified by FILEPATH does not exist, you will encounter a FileNotFoundError. You should handle this case by checking if the file exists before attempting to open it.
